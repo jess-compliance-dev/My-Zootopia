@@ -18,6 +18,7 @@ def main():
         - Temperament
         - Weight
         - Diet
+    Replaces the placeholder with the data string and writes the final HTML to 'animals.html'
     """
     animals_data = load_data("animals_data.json")
 
@@ -50,13 +51,16 @@ def main():
 
         animals_output += "\n"  # Add a blank line between animals
 
-
+    # Open HTML Template
     with open("animals_template.html", "r") as file:
         template_content = file.read()
 
+    # Replace placeholder
     final_html = template_content.replace("__REPLACE_ANIMALS_INFO__", animals_output)
 
-    print(final_html)
+    # Write final html file
+    with open("animals.html", "w") as file:
+        file.write(final_html)
 
-print(main())
+main()
 
