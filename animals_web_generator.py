@@ -6,10 +6,11 @@ def load_data(file_path):
         data = json.load(animal_file)
     return data
 
+
 def main():
     """
     Reads 'animals_data.json' and generates an HTML string with the animals’ data:
-        - Name (fixes weird characters)
+        - Name
         - Scientific name
         - First location
         - Lifespan (replaces weird characters with '-')
@@ -57,10 +58,13 @@ def main():
         animals_output += '  </div>\n'
         animals_output += '</li>\n\n'
 
+
     with open("animals_template.html", "r") as file:
         template_content = file.read()
 
+
     final_html = template_content.replace("__REPLACE_ANIMALS_INFO__", animals_output)
+
 
     with open("animals.html", "w") as file:
         file.write(final_html)
