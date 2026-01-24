@@ -24,7 +24,7 @@ def main():
 
     for animal in animals_data:
         name = animal.get("name", "Unknown")
-        name = name.replace("â€™", "’")
+        name = name.replace("â€™", "’").replace("ï¿½", "’")
 
         scientific_name = animal.get("taxonomy", {}).get("scientific_name", "Unknown")
 
@@ -47,15 +47,13 @@ def main():
         animals_output += '<li class="cards__item">\n'
         animals_output += f'  <div class="card__title">{name}</div>\n'
         animals_output += '  <div class="card__text">\n'
-        animals_output += '    <ul class="card__list">\n'
-        animals_output += f'      <li><strong>Diet:</strong> {diet}</li>\n'
-        animals_output += f'      <li><strong>Location:</strong> {first_location}</li>\n'
-        animals_output += f'      <li><strong>Type:</strong> {type_}</li>\n'
-        animals_output += f'      <li><strong>Scientific Name:</strong> {scientific_name}</li>\n'
-        animals_output += f'      <li><strong>Lifespan:</strong> {lifespan}</li>\n'
-        animals_output += f'      <li><strong>Temperament:</strong> {temperament}</li>\n'
-        animals_output += f'      <li><strong>Weight:</strong> {weight}</li>\n'
-        animals_output += '    </ul>\n'
+        animals_output += f'      <div><strong>Diet:</strong> {diet}</div>\n'
+        animals_output += f'      <div><strong>Location:</strong> {first_location}</div>\n'
+        animals_output += f'      <div><strong>Type:</strong> {type_}</div>\n'
+        animals_output += f'      <div><strong>Scientific Name:</strong> {scientific_name}</div>\n'
+        animals_output += f'      <div><strong>Lifespan:</strong> {lifespan}</div>\n'
+        animals_output += f'      <div><strong>Temperament:</strong> {temperament}</div>\n'
+        animals_output += f'      <div><strong>Weight:</strong> {weight}</div>\n'
         animals_output += '  </div>\n'
         animals_output += '</li>\n\n'
 
