@@ -1,5 +1,6 @@
 import json
 
+
 def load_data(file_path):
     """Loads a JSON file and returns its content as a Python object."""
     with open(file_path, "r") as animal_file:
@@ -34,7 +35,9 @@ def main():
 
         lifespan = animal.get("characteristics", {}).get("lifespan", "Unknown")
         if lifespan != "Unknown":
-            lifespan = (lifespan.replace("â€“", "-").replace(" – ", "-").replace(" - ", "-").replace("to", "-"))
+            lifespan = (
+                lifespan.replace("â€“", "-").replace("–", "-").replace("—", "-").replace(" to ", "-")
+            )
 
         temperament = animal.get("characteristics", {}).get("temperament", "Unknown")
         temperament = temperament.replace("â€™", "’")
@@ -43,30 +46,25 @@ def main():
 
         diet = animal.get("characteristics", {}).get("diet", "Unknown")
 
-        type_ = animal.get("characteristics", {}).get("type", "Unknown")
-
         animals_output += '<li class="cards__item">\n'
         animals_output += f'  <div class="card__title">{name}</div>\n'
         animals_output += '  <div class="card__text">\n'
-        animals_output += f'      <div><strong>Diet:</strong> {diet}</div>\n'
-        animals_output += f'      <div><strong>Location:</strong> {first_location}</div>\n'
-        animals_output += f'      <div><strong>Type:</strong> {type_}</div>\n'
-        animals_output += f'      <div><strong>Scientific Name:</strong> {scientific_name}</div>\n'
+        animals_output += f'      <div><strong>Scientific name:</strong> {scientific_name}</div>\n'
+        animals_output += f'      <div><strong>First location:</strong> {first_location}</div>\n'
         animals_output += f'      <div><strong>Lifespan:</strong> {lifespan}</div>\n'
         animals_output += f'      <div><strong>Temperament:</strong> {temperament}</div>\n'
         animals_output += f'      <div><strong>Weight:</strong> {weight}</div>\n'
+        animals_output += f'      <div><strong>Diet:</strong> {diet}</div>\n'
         animals_output += '  </div>\n'
         animals_output += '</li>\n\n'
-
 
     with open("animals_template.html", "r") as file:
         template_content = file.read()
 
-
     final_html = template_content.replace("__REPLACE_ANIMALS_INFO__", animals_output)
-
 
     with open("animals.html", "w") as file:
         file.write(final_html)
+
 
 main()
