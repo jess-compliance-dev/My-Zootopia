@@ -34,7 +34,7 @@ def main():
 
         lifespan = animal.get("characteristics", {}).get("lifespan", "Unknown")
         if lifespan != "Unknown":
-            lifespan = lifespan.replace("â€“", "–").replace(" - ", "-")
+            lifespan = lifespan.replace("â€“", "–").replace(" – ", "–").replace(" - ", "–").replace("to", "–" )
         print("Lifespan:", lifespan)
 
         temperament = animal.get("characteristics", {}).get("temperament", "Unknown")
@@ -50,3 +50,7 @@ def main():
 
 
 main()
+
+# Step 1: Read the content of the template
+with open("animals_template.html", "r") as file:
+    template_content = file.read()
