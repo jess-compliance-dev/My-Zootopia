@@ -10,7 +10,7 @@ def load_data(file_path):
 
 def main():
     """
-    Reads 'animals_data.json' and generates a string with the animals’ data:
+    Reads 'animals_data.json' and generates a string with the animals’ data as HTML list items:
         - Name
         - Scientific name
         - First location
@@ -26,41 +26,34 @@ def main():
 
     for animal in animals_data:
         name = animal.get("name", "Unknown")
-        animals_output += f"Name: {name}\n"
-
         scientific_name = animal.get("taxonomy", {}).get("scientific_name", "Unknown")
-        animals_output += f"Scientific Name: {scientific_name}\n"
-
         locations = animal.get("locations", [])
         first_location = locations[0] if locations else "Unknown"
-        animals_output += f"Location: {first_location}\n"
-
         lifespan = animal.get("characteristics", {}).get("lifespan", "Unknown")
         if lifespan != "Unknown":
             lifespan = lifespan.replace("â€“", "-").replace(" – ", "-").replace(" - ", "-").replace("to", "-")
-        animals_output += f"Lifespan: {lifespan}\n"
-
         temperament = animal.get("characteristics", {}).get("temperament", "Unknown")
-        animals_output += f"Temperament: {temperament}\n"
-
         weight = animal.get("characteristics", {}).get("weight", "Unknown")
-        animals_output += f"Weight: {weight}\n"
-
         diet = animal.get("characteristics", {}).get("diet", "Unknown")
-        animals_output += f"Diet: {diet}\n"
+        type_ = animal.get("characteristics", {}).get("type", "Unknown")
 
-        animals_output += "\n"  # Add a blank line between animals
+        animals_output += '<li class="cards__item">\n'
+        animals_output += f"Name: {name}<br/>\n"
+        animals_output += f"Scientific Name: {scientific_name}<br/>\n"
+        animals_output += f"Location: {first_location}<br/>\n"
+        animals_output += f"Lifespan: {lifespan}<br/>\n"
+        animals_output += f"Temperament: {temperament}<br/>\n"
+        animals_output += f"Weight: {weight}<br/>\n"
+        animals_output += f"Diet: {diet}<br/>\n"
+        animals_output += f"Type: {type_}<br/>\n"
+        animals_output += '</li>\n\n'
 
-    # Open HTML Template
     with open("animals_template.html", "r") as file:
         template_content = file.read()
 
-    # Replace placeholder
     final_html = template_content.replace("__REPLACE_ANIMALS_INFO__", animals_output)
 
-    # Write final html file
     with open("animals.html", "w") as file:
         file.write(final_html)
 
 main()
-
