@@ -1,24 +1,22 @@
 import json
 
-
 def load_data(file_path):
     """Loads a JSON file and returns its content as a Python object."""
     with open(file_path, "r") as animal_file:
         data = json.load(animal_file)
     return data
 
-
 def main():
     """
-    Reads 'animals_data.json' and generates a string with the animals’ data as HTML list items:
-        - Name
+    Reads 'animals_data.json' and generates an HTML string with the animals’ data:
+        - Name (fixes weird characters)
         - Scientific name
         - First location
         - Lifespan (replaces weird characters with '-')
         - Temperament
         - Weight
         - Diet
-    Replaces the placeholder with the data string and writes the final HTML to 'animals.html'
+    Replaces the placeholder in the template and writes the final HTML to 'animals.html'
     """
     animals_data = load_data("animals_data.json")
 
@@ -26,26 +24,37 @@ def main():
 
     for animal in animals_data:
         name = animal.get("name", "Unknown")
+        name = name.replace("â€™", "’")
+
         scientific_name = animal.get("taxonomy", {}).get("scientific_name", "Unknown")
+
         locations = animal.get("locations", [])
         first_location = locations[0] if locations else "Unknown"
+
         lifespan = animal.get("characteristics", {}).get("lifespan", "Unknown")
         if lifespan != "Unknown":
-            lifespan = lifespan.replace("â€“", "-").replace(" – ", "-").replace(" - ", "-").replace("to", "-")
+            lifespan = (lifespan.replace("â€“", "-").replace(" – ", "-").replace(" - ", "-").replace("to", "-"))
+
         temperament = animal.get("characteristics", {}).get("temperament", "Unknown")
+        temperament = temperament.replace("â€™", "’")
+
         weight = animal.get("characteristics", {}).get("weight", "Unknown")
+
         diet = animal.get("characteristics", {}).get("diet", "Unknown")
+
         type_ = animal.get("characteristics", {}).get("type", "Unknown")
 
         animals_output += '<li class="cards__item">\n'
-        animals_output += f"Name: {name}<br/>\n"
-        animals_output += f"Scientific Name: {scientific_name}<br/>\n"
-        animals_output += f"Location: {first_location}<br/>\n"
-        animals_output += f"Lifespan: {lifespan}<br/>\n"
-        animals_output += f"Temperament: {temperament}<br/>\n"
-        animals_output += f"Weight: {weight}<br/>\n"
-        animals_output += f"Diet: {diet}<br/>\n"
-        animals_output += f"Type: {type_}<br/>\n"
+        animals_output += f'  <div class="card__title">{name}</div>\n'
+        animals_output += '  <p class="card__text">\n'
+        animals_output += f'      <strong>Diet:</strong> {diet}<br/>\n'
+        animals_output += f'      <strong>Location:</strong> {first_location}<br/>\n'
+        animals_output += f'      <strong>Type:</strong> {type_}<br/>\n'
+        animals_output += f'      <strong>Scientific Name:</strong> {scientific_name}<br/>\n'
+        animals_output += f'      <strong>Lifespan:</strong> {lifespan}<br/>\n'
+        animals_output += f'      <strong>Temperament:</strong> {temperament}<br/>\n'
+        animals_output += f'      <strong>Weight:</strong> {weight}<br/>\n'
+        animals_output += '  </p>\n'
         animals_output += '</li>\n\n'
 
     with open("animals_template.html", "r") as file:
