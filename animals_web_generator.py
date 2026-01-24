@@ -53,3 +53,10 @@ def main():
 
     with open("animals_template.html", "r") as file:
         template_content = file.read()
+
+    final_html = template_content.replace("__REPLACE_ANIMALS_INFO__", animals_output)
+
+    print(final_html)
+
+print(main())
+
