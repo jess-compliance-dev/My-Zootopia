@@ -30,6 +30,8 @@ def main():
 
         scientific_name = animal.get("taxonomy", {}).get("scientific_name", "Unknown")
 
+        type_ = animal.get("characteristics", {}).get("type", "Unknown").capitalize()
+
         locations = animal.get("locations", [])
         first_location = locations[0] if locations else "Unknown"
 
@@ -50,6 +52,7 @@ def main():
         animals_output += f'  <div class="card__title">{name}</div>\n'
         animals_output += '  <div class="card__text">\n'
         animals_output += f'      <div><strong>Scientific name:</strong> {scientific_name}</div>\n'
+        animals_output += f'      <div><strong>Type:</strong> {type_}</div>\n'
         animals_output += f'      <div><strong>First location:</strong> {first_location}</div>\n'
         animals_output += f'      <div><strong>Lifespan:</strong> {lifespan}</div>\n'
         animals_output += f'      <div><strong>Temperament:</strong> {temperament}</div>\n'
@@ -67,4 +70,5 @@ def main():
         file.write(final_html)
 
 
-main()
+if __name__ == "__main__":
+    main()
