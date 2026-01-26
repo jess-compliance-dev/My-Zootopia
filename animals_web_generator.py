@@ -22,7 +22,7 @@ def main():
     """
     animals_data = load_data("animals_data.json")
 
-    animals_output = ""
+    animals_output = []
 
     for animal in animals_data:
         name = animal.get("name", "Unknown")
@@ -48,18 +48,20 @@ def main():
 
         diet = animal.get("characteristics", {}).get("diet", "Unknown")
 
-        animals_output += '<li class="cards__item">\n'
-        animals_output += f'  <div class="card__title">{name}</div>\n'
-        animals_output += '  <div class="card__text">\n'
-        animals_output += f'      <div><strong>Scientific name:</strong> {scientific_name}</div>\n'
-        animals_output += f'      <div><strong>Type:</strong> {type_}</div>\n'
-        animals_output += f'      <div><strong>First location:</strong> {first_location}</div>\n'
-        animals_output += f'      <div><strong>Lifespan:</strong> {lifespan}</div>\n'
-        animals_output += f'      <div><strong>Temperament:</strong> {temperament}</div>\n'
-        animals_output += f'      <div><strong>Weight:</strong> {weight}</div>\n'
-        animals_output += f'      <div><strong>Diet:</strong> {diet}</div>\n'
-        animals_output += '  </div>\n'
-        animals_output += '</li>\n\n'
+        animals_output.append('<li class="cards__item">\n')
+        animals_output.append(f'  <div class="card__title">{name}</div>\n')
+        animals_output.append('  <div class="card__text">\n')
+        animals_output.append(f'      <div><strong>Scientific name:</strong> {scientific_name}</div>\n')
+        animals_output.append(f'      <div><strong>Type:</strong> {type_}</div>\n')
+        animals_output.append(f'      <div><strong>First location:</strong> {first_location}</div>\n')
+        animals_output.append(f'      <div><strong>Lifespan:</strong> {lifespan}</div>\n')
+        animals_output.append(f'      <div><strong>Temperament:</strong> {temperament}</div>\n')
+        animals_output.append(f'      <div><strong>Weight:</strong> {weight}</div>\n')
+        animals_output.append(f'      <div><strong>Diet:</strong> {diet}</div>\n')
+        animals_output.append('  </div>\n')
+        animals_output.append('</li>\n\n')
+
+    animals_output = "".join(animals_output)
 
     with open("animals_template.html", "r") as file:
         template_content = file.read()
