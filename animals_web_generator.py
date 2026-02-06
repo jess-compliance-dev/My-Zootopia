@@ -90,6 +90,8 @@ def main():
     with open("animals.html", "w") as file:
         file.write(final_html)
 
+    print("Website was successfully generated to the file animals.html.")
+
 
 if __name__ == "__main__":
     main()
