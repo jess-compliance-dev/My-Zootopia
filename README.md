@@ -68,12 +68,12 @@ $ python --version
 ````
   $ python animals_web_generator.py
 ````
-2. You will be asked, which animal you would like to have info for. Type any animal.
+2. You will be asked which animal you would like to have info for. Type any animal.
 ````
 3. You will see: Website was successfully generated to the file animals.html.
 ````
 4. Open animals.html in your browser to see the result.
-5. If the animal doens't exists, you will see an error message in the website.
+5. If the animal doesn't exist, you will see an error message in the website.
 
 ## Project Purpose
 This project is designed for learning:
