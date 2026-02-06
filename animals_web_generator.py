@@ -1,28 +1,9 @@
-import requests
-import os
-from dotenv import load_dotenv
-
-
-load_dotenv()
-API_KEY = os.getenv("API_KEY")
-url = "https://api.api-ninjas.com/v1/animals"
-
-def load_data(animal_name):
-    """Fetches animal data from API for the given animal name"""
-    params = {"name": animal_name}
-    headers = {"X-Api-Key": API_KEY}
-    response = requests.get(url, headers=headers, params=params)
-
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print("Error occurred:", response.status_code, response.text)
-        return []  # avoids TypeError
+from data_fetcher import fetch_data
 
 
 def main():
     animal_name = input("Which animal would you like to learn more about: ").strip()
-    animals_data = load_data(animal_name)
+    animals_data = fetch_data(animal_name)
 
     if animals_data:
         animals_output = []
