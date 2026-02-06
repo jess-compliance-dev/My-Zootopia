@@ -1,16 +1,28 @@
-import json
+import requests
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-def load_data(file_path):
-    """Loads a JSON file and returns its content as a Python object."""
-    with open(file_path, "r") as animal_file:
-        data = json.load(animal_file)
-    return data
+API_KEY = os.getenv("API_KEY")
+url = "https://api.api-ninjas.com/v1/animals"
+
+def load_data():
+    """Fetches animal data from API"""
+    params = {"name": "fox"}
+    headers = {"X-Api-Key": API_KEY}
+    response = requests.get(url, headers=headers, params=params)
+
+    if response.status_code == 200:
+        return(response.json())
+    else:
+        print("Error ocurred:", response.status_code, response.text)
+        return [] #otherwise TypeError
 
 
 def main():
     """
-    Reads 'animals_data.json' and generates an HTML string with the animals’ data:
+    Fetches animal data from API and generates an HTML string with the animals’ data:
         - Name
         - Scientific name
         - First location
@@ -20,7 +32,7 @@ def main():
         - Diet
     Replaces the placeholder in the template and writes the final HTML to 'animals.html'
     """
-    animals_data = load_data("animals_data.json")
+    animals_data = load_data()
 
     animals_output = []
 
