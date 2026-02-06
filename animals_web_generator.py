@@ -2,27 +2,28 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
 
+load_dotenv()
 API_KEY = os.getenv("API_KEY")
 url = "https://api.api-ninjas.com/v1/animals"
 
-def load_data():
-    """Fetches animal data from API"""
-    params = {"name": "fox"}
+def load_data(animal_name):
+    """Fetches animal data from API for the given animal name"""
+    params = {"name": animal_name}
     headers = {"X-Api-Key": API_KEY}
     response = requests.get(url, headers=headers, params=params)
 
     if response.status_code == 200:
-        return(response.json())
+        return response.json()
     else:
-        print("Error ocurred:", response.status_code, response.text)
-        return [] #otherwise TypeError
+        print("Error occurred:", response.status_code, response.text)
+        return []  # avoids TypeError
 
 
 def main():
     """
-    Fetches animal data from API and generates an HTML string with the animals’ data:
+    Asks user for an animal, fetches animal data from API and generates an HTML string with the
+    requested animal data:
         - Name
         - Scientific name
         - First location
@@ -32,7 +33,13 @@ def main():
         - Diet
     Replaces the placeholder in the template and writes the final HTML to 'animals.html'
     """
-    animals_data = load_data()
+    # User Input
+    animal_name = input("Which animal would you like to learn more about: ").strip()
+    animals_data = load_data(animal_name)
+
+    if not animals_data:
+        print(f"No results for '{animal_name}'.")
+        return
 
     animals_output = []
 
